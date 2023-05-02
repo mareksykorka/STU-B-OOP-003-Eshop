@@ -9,6 +9,7 @@ import sk.stuba.fei.uim.oop.assignment3.product.web.body.ProductAmount;
 import sk.stuba.fei.uim.oop.assignment3.product.web.body.ProductEditRequest;
 import sk.stuba.fei.uim.oop.assignment3.product.web.body.ProductRequest;
 import sk.stuba.fei.uim.oop.assignment3.product.web.body.ProductResponse;
+import sk.stuba.fei.uim.oop.assignment3.exception.NotFoundException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,36 +27,35 @@ public class ProductController {
 
     @PostMapping("/product")
     public ResponseEntity createProduct(@RequestBody ProductRequest request) {
-        return new ResponseEntity(new ProductResponse(this.service.createNewProduct(request)), HttpStatus.CREATED);
+        try {
+            return new ResponseEntity(new ProductResponse(this.service.createNewProduct(request)), HttpStatus.CREATED);
+        } catch (NotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    //TODO: 404 status code
     @GetMapping("/product/{id}")
-    public ProductResponse getAllProducts(@PathVariable("id") Long id) {
+    public ProductResponse getAllProducts(@PathVariable("id") Long id) throws NotFoundException {
         return new ProductResponse(this.service.getId(id));
     }
 
-    //TODO: 404 status code
     @PutMapping("/product/{id}")
-    public ProductResponse updateProduct(@PathVariable("id") Long id, @RequestBody ProductEditRequest request) {
+    public ProductResponse updateProduct(@PathVariable("id") Long id, @RequestBody ProductEditRequest request) throws NotFoundException  {
         return new ProductResponse(this.service.updateId(id, request));
     }
 
-    //TODO: 404 status code
     @DeleteMapping("/product/{id}")
-    public void deleteProduct(@PathVariable("id") Long id) {
+    public void deleteProduct(@PathVariable("id") Long id) throws NotFoundException  {
         this.service.deleteId(id);
     }
 
-    //TODO: 404 status code
     @GetMapping("/product/{id}/amount")
-    public ProductAmount getProductAmount(@PathVariable("id") Long id) {
+    public ProductAmount getProductAmount(@PathVariable("id") Long id) throws NotFoundException  {
         return new ProductAmount(this.service.getAmount(id));
     }
 
-    //TODO: 404 status code
     @PostMapping("/product/{id}/amount")
-    public ProductAmount setProductAmount(@PathVariable("id") Long id, @RequestBody ProductAmount request) {
+    public ProductAmount setProductAmount(@PathVariable("id") Long id, @RequestBody ProductAmount request) throws NotFoundException  {
         return new ProductAmount(this.service.setAmount(id, request));
     }
 }

@@ -7,6 +7,7 @@ import sk.stuba.fei.uim.oop.assignment3.product.data.Product;
 import sk.stuba.fei.uim.oop.assignment3.product.web.body.ProductAmount;
 import sk.stuba.fei.uim.oop.assignment3.product.web.body.ProductEditRequest;
 import sk.stuba.fei.uim.oop.assignment3.product.web.body.ProductRequest;
+import sk.stuba.fei.uim.oop.assignment3.exception.NotFoundException;
 
 import java.util.List;
 
@@ -22,17 +23,21 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public Product createNewProduct(ProductRequest request) {
+    public Product createNewProduct(ProductRequest request) throws NotFoundException {
         return this.repository.save(new Product(request));
     }
 
     @Override
-    public Product getId(long id) {
-        return this.repository.findProductById(id);
+    public Product getId(long id) throws NotFoundException {
+        Product p = this.repository.findProductById(id);
+        if (p == null) {
+            throw new NotFoundException();
+        }
+        return p;
     }
 
     @Override
-    public Product updateId(long id, ProductEditRequest request) {
+    public Product updateId(long id, ProductEditRequest request) throws NotFoundException {
         Product p = this.getId(id);
         if (request.getName() != null) {
             p.setName(request.getName());
@@ -44,17 +49,21 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public void deleteId(long id) {
-        this.repository.deleteById(id);
+    public void deleteId(long id) throws NotFoundException {
+        Product p = this.repository.findProductById(id);
+        if (p == null) {
+            throw new NotFoundException();
+        }
+        this.repository.delete(p);
     }
 
     @Override
-    public long getAmount(long id) {
+    public long getAmount(long id) throws NotFoundException {
         return this.getId(id).getAmount();
     }
 
     @Override
-    public long setAmount(long id, ProductAmount request) {
+    public long setAmount(long id, ProductAmount request) throws NotFoundException {
         Product p = this.getId(id);
         p.setAmount(p.getAmount() + request.getAmount());
         this.repository.save(p);
