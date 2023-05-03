@@ -9,17 +9,17 @@ import sk.stuba.fei.uim.oop.assignment3.exception.NotFoundException;
 import java.util.List;
 
 public interface IProductService {
-    List<Product> getAll();
+    List<Product> getProducts();
 
-    Product createNewProduct(ProductRequest request) throws NotFoundException;
+    Product createProduct(ProductRequest request);
 
-    Product getId(long id) throws NotFoundException;
+    Product getProductById(long id) throws NotFoundException;
 
-    Product updateId(long id, ProductEditRequest request) throws NotFoundException;
+    Product updateProductById(long id, ProductEditRequest request) throws NotFoundException;
 
-    void deleteId(long id) throws NotFoundException;
+    void deleteProductById(long id) throws NotFoundException;
 
-    long getAmount(long id) throws NotFoundException;
+    long getProductAmount(long id) throws NotFoundException;
 
-    long setAmount(long id, ProductAmount request) throws NotFoundException;
+    long changeProductAmount(long id, ProductAmount request) throws NotFoundException;
 }

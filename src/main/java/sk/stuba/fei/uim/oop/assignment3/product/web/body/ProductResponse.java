@@ -1,5 +1,6 @@
 package sk.stuba.fei.uim.oop.assignment3.product.web.body;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import sk.stuba.fei.uim.oop.assignment3.product.data.Product;
 

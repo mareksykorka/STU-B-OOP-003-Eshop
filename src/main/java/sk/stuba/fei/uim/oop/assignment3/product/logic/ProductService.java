@@ -18,17 +18,17 @@ public class ProductService implements IProductService {
     private IProductRepository repository;
 
     @Override
-    public List<Product> getAll() {
+    public List<Product> getProducts() {
         return this.repository.findAll();
     }
 
     @Override
-    public Product createNewProduct(ProductRequest request) throws NotFoundException {
+    public Product createProduct(ProductRequest request) {
         return this.repository.save(new Product(request));
     }
 
     @Override
-    public Product getId(long id) throws NotFoundException {
+    public Product getProductById(long id) throws NotFoundException {
         Product p = this.repository.findProductById(id);
         if (p == null) {
             throw new NotFoundException();
@@ -37,8 +37,8 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public Product updateId(long id, ProductEditRequest request) throws NotFoundException {
-        Product p = this.getId(id);
+    public Product updateProductById(long id, ProductEditRequest request) throws NotFoundException {
+        Product p = this.getProductById(id);
         if (request.getName() != null) {
             p.setName(request.getName());
         }
@@ -49,22 +49,18 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public void deleteId(long id) throws NotFoundException {
-        Product p = this.repository.findProductById(id);
-        if (p == null) {
-            throw new NotFoundException();
-        }
-        this.repository.delete(p);
+    public void deleteProductById(long id) throws NotFoundException {
+        this.repository.delete(getProductById(id));
     }
 
     @Override
-    public long getAmount(long id) throws NotFoundException {
-        return this.getId(id).getAmount();
+    public long getProductAmount(long id) throws NotFoundException {
+        return this.getProductById(id).getAmount();
     }
 
     @Override
-    public long setAmount(long id, ProductAmount request) throws NotFoundException {
-        Product p = this.getId(id);
+    public long changeProductAmount(long id, ProductAmount request) throws NotFoundException {
+        Product p = this.getProductById(id);
         p.setAmount(p.getAmount() + request.getAmount());
         this.repository.save(p);
         return p.getAmount();
