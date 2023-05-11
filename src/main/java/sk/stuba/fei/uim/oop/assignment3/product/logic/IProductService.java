@@ -15,7 +15,6 @@ public interface IProductService {
     Product editProductById(Long id, ProductRequest request) throws NotFoundException;
     boolean deleteProductById(Long id) throws NotFoundException;
     Long getProductAmountById(Long id) throws NotFoundException;
-    Long setProductAmountById(Long productId, Long amount) throws NotFoundException;
     Long increaseProductAmountById(Long productId, Long amount) throws NotFoundException;
     Long decreaseProductAmountById(Long productId, Long amount) throws NotFoundException;
 }
