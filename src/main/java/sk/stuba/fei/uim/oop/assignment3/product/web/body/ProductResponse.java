@@ -1,17 +1,16 @@
 package sk.stuba.fei.uim.oop.assignment3.product.web.body;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import sk.stuba.fei.uim.oop.assignment3.product.data.Product;
 
 @Getter
 public class ProductResponse {
-    private long id;
+    private Long id;
     private String name;
     private String description;
-    private long amount;
+    private Long amount;
     private String unit;
-    private double price;
+    private Double price;
 
     public ProductResponse(Product p) {
         this.id = p.getId();

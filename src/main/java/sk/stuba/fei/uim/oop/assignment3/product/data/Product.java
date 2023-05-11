@@ -1,7 +1,9 @@
 package sk.stuba.fei.uim.oop.assignment3.product.data;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import sk.stuba.fei.uim.oop.assignment3.product.web.body.ProductRequest;
 
 import javax.persistence.Entity;
@@ -9,9 +11,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity
-@Data
+
+@Setter
+@Getter
 @NoArgsConstructor
+@Entity
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,11 +26,11 @@ public class Product {
     private String unit;
     private Double price;
 
-    public Product(ProductRequest p) {
-        this.name = p.getName();
-        this.description = p.getDescription();
-        this.amount = p.getAmount();
-        this.unit = p.getUnit();
-        this.price = p.getPrice();
+    public Product(ProductRequest r){
+        this.name = r.getName();
+        this.description = r.getDescription();
+        this.amount = r.getAmount();
+        this.unit = r.getUnit();
+        this.price = r.getPrice();
     }
 }

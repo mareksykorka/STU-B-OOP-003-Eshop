@@ -1,9 +1,10 @@
 package sk.stuba.fei.uim.oop.assignment3.product.data;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
-@Repository
+import java.util.List;
+
 public interface IProductRepository extends JpaRepository<Product, Long> {
-    Product findProductById(long id);
+    List<Product> findAll();
+    Product findProductById(Long id);
 }
