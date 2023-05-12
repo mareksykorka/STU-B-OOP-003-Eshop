@@ -11,7 +11,7 @@ import sk.stuba.fei.uim.oop.assignment3.exception.NotFoundException;
 import sk.stuba.fei.uim.oop.assignment3.product.logic.IProductService;
 
 @Service
-public class CartService implements ICartService{
+public class CartService implements ICartService {
 
     @Autowired
     private ICartRepository cartRepository;
@@ -30,31 +30,29 @@ public class CartService implements ICartService{
     }
 
     @Override
-    public Cart getCartById(Long id) throws NotFoundException {
-        Cart cart = this.cartRepository.findCartById(id);
-        if(cart == null){
+    public Cart getCartById(Long cartId) throws NotFoundException {
+        Cart cart = this.cartRepository.findCartById(cartId);
+        if (cart == null) {
             throw new NotFoundException();
         }
         return cart;
     }
 
     @Override
-    public void deleteCartById(Long id) throws NotFoundException {
-        Cart cart = this.getCartById(id);
+    public void deleteCartById(Long cartId) throws NotFoundException {
+        Cart cart = this.getCartById(cartId);
         this.cartRepository.deleteById(cart.getId());
     }
 
     @Override
     public Cart addItemToCartById(Long cartId, CartAddRequest request) throws NotFoundException, IllegalOperationException {
         Cart cart = getCartById(cartId);
-
-        if(cart.getPayed() || !this.productService.isInStock(request.getProductId(), request.getAmount())){
+        if (cart.getPayed() || !this.productService.isInStock(request.getProductId(), request.getAmount())) {
             throw new IllegalOperationException();
         }
 
-        CartItem cartItem = this.cartItemService.getCartItem(cart.getShoppingList(),request.getProductId());
-
-        if(cartItem == null) {
+        CartItem cartItem = this.cartItemService.getCartItemFromCart(cart.getShoppingList(), request.getProductId());
+        if (cartItem == null) {
             CartItem newCartItem = this.cartItemService.create(request.getProductId());
             newCartItem.setAmount(request.getAmount());
             this.cartItemService.save(newCartItem);
@@ -65,7 +63,6 @@ public class CartService implements ICartService{
         }
 
         this.productService.decreaseProductAmountById(request.getProductId(), request.getAmount());
-
         this.cartRepository.save(cart);
         return cart;
     }
@@ -73,14 +70,13 @@ public class CartService implements ICartService{
     @Override
     public Double payCartById(Long cartId) throws NotFoundException, IllegalOperationException {
         Cart cart = getCartById(cartId);
-
-        if(cart.getPayed()){
+        if (cart.getPayed()) {
             throw new IllegalOperationException();
         }
-
         cart.setPayed(true);
+
         double totalPrice = 0;
-        for (CartItem cartItem:cart.getShoppingList()) {
+        for (CartItem cartItem : cart.getShoppingList()) {
             totalPrice = totalPrice + (cartItem.getAmount() * (this.productService.getProductById(cartItem.getProductId()).getPrice()));
         }
 

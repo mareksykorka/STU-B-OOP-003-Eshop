@@ -1,8 +1,12 @@
 package sk.stuba.fei.uim.oop.assignment3.product.web.body;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
-@Data
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class ProductEditRequest {
     private String name;
     private String description;

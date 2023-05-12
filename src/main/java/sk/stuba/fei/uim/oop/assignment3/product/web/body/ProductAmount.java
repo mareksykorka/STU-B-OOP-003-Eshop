@@ -1,10 +1,10 @@
 package sk.stuba.fei.uim.oop.assignment3.product.web.body;
 
-import lombok.Data;
-import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
-@Data
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductAmount {

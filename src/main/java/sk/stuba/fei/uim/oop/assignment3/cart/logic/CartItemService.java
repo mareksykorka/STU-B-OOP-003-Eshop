@@ -8,7 +8,7 @@ import sk.stuba.fei.uim.oop.assignment3.cart.data.ICartItemRepository;
 import java.util.List;
 
 @Service
-public class CartItemService implements ICartItemService{
+public class CartItemService implements ICartItemService {
     @Autowired
     private ICartItemRepository cartItemRepository;
 
@@ -20,10 +20,10 @@ public class CartItemService implements ICartItemService{
     }
 
     @Override
-    public CartItem getCartItem(List<CartItem> shoppingList, Long productId) {
-        for (CartItem item:shoppingList) {
-            if(item.getProductId().equals(productId)){
-                return item;
+    public CartItem getCartItemFromCart(List<CartItem> shoppingList, Long productId) {
+        for (CartItem cartItem : shoppingList) {
+            if (cartItem.getProductId().equals(productId)) {
+                return cartItem;
             }
         }
         return null;
