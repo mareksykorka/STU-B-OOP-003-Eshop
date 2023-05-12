@@ -1,6 +1,5 @@
 package sk.stuba.fei.uim.oop.assignment3.cart.logic;
 
-import sk.stuba.fei.uim.oop.assignment3.cart.data.Cart;
 import sk.stuba.fei.uim.oop.assignment3.cart.data.CartItem;
 
 import java.util.List;

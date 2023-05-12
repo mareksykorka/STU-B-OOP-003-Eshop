@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import sk.stuba.fei.uim.oop.assignment3.exception.NotFoundException;
 import sk.stuba.fei.uim.oop.assignment3.product.data.IProductRepository;
 import sk.stuba.fei.uim.oop.assignment3.product.data.Product;
-import sk.stuba.fei.uim.oop.assignment3.product.web.body.ProductAmount;
 import sk.stuba.fei.uim.oop.assignment3.product.web.body.ProductRequest;
 
 import java.util.List;
@@ -51,10 +50,9 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public boolean deleteProductById(Long id) throws NotFoundException {
+    public void deleteProductById(Long id) throws NotFoundException {
         Product product = this.getProductById(id);
         this.productRepository.deleteById(product.getId());
-        return true;
     }
 
     @Override

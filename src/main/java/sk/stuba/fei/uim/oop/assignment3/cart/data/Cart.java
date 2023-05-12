@@ -1,9 +1,7 @@
 package sk.stuba.fei.uim.oop.assignment3.cart.data;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.action.internal.OrphanRemovalAction;
 
 import javax.persistence.*;
 import java.util.ArrayList;
