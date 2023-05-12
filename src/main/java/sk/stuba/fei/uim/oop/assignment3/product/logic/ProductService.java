@@ -28,8 +28,8 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public Product getProductById(Long id) throws NotFoundException {
-        Product product = this.productRepository.findProductById(id);
+    public Product getProductById(Long productId) throws NotFoundException {
+        Product product = this.productRepository.findProductById(productId);
         if (product == null) {
             throw new NotFoundException();
         }
@@ -37,8 +37,8 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public Product editProductById(Long id, ProductRequest request) throws NotFoundException {
-        Product product = this.getProductById(id);
+    public Product editProductById(Long productId, ProductRequest request) throws NotFoundException {
+        Product product = this.getProductById(productId);
         if (request.getName() != null) {
             product.setName(request.getName());
         }
@@ -50,35 +50,35 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public void deleteProductById(Long id) throws NotFoundException {
-        Product product = this.getProductById(id);
+    public void deleteProductById(Long productId) throws NotFoundException {
+        Product product = this.getProductById(productId);
         this.productRepository.deleteById(product.getId());
     }
 
     @Override
-    public Long getProductAmountById(Long id) throws NotFoundException {
-        Product product = this.getProductById(id);
+    public Long getProductAmountById(Long productId) throws NotFoundException {
+        Product product = this.getProductById(productId);
         return product.getAmount();
     }
 
     @Override
-    public Long increaseProductAmountById(Long id, Long amount) throws NotFoundException {
-        Product product = this.getProductById(id);
+    public Long increaseProductAmountById(Long productId, Long amount) throws NotFoundException {
+        Product product = this.getProductById(productId);
         product.setAmount(product.getAmount() + amount);
         this.productRepository.save(product);
         return product.getAmount();
     }
 
     @Override
-    public Long decreaseProductAmountById(Long id, Long amount) throws NotFoundException {
-        Product product = this.getProductById(id);
+    public Long decreaseProductAmountById(Long productId, Long amount) throws NotFoundException {
+        Product product = this.getProductById(productId);
         product.setAmount(product.getAmount() - amount);
         this.productRepository.save(product);
         return product.getAmount();
     }
 
     @Override
-    public boolean isInStock(Long productId, Long amount) throws NotFoundException{
+    public boolean isInStock(Long productId, Long amount) throws NotFoundException {
         return this.getProductById(productId).getAmount() >= amount;
     }
 

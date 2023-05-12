@@ -36,11 +36,11 @@ public class ProductController {
     }
 
     @PutMapping(value = "/product/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ProductResponse updateProduct(@PathVariable("id") Long productId, @RequestBody  ProductRequest requestBody) throws NotFoundException {
+    public ProductResponse updateProduct(@PathVariable("id") Long productId, @RequestBody ProductRequest requestBody) throws NotFoundException {
         return new ProductResponse(this.productService.editProductById(productId, requestBody));
     }
 
-    @DeleteMapping(value = "/product/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "/product/{id}")
     public void deleteProduct(@PathVariable("id") Long productId) throws NotFoundException {
         this.productService.deleteProductById(productId);
     }
@@ -50,8 +50,8 @@ public class ProductController {
         return new ProductAmount(this.productService.getProductAmountById(productId));
     }
 
-    @PostMapping(value = "/product/{id}/amount", consumes = MediaType.APPLICATION_JSON_VALUE,  produces = MediaType.APPLICATION_JSON_VALUE)
-    public ProductAmount addProductAmount(@PathVariable("id") Long productId,  @RequestBody  ProductAmount requestBody) throws NotFoundException {
+    @PostMapping(value = "/product/{id}/amount", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ProductAmount addProductAmount(@PathVariable("id") Long productId, @RequestBody ProductAmount requestBody) throws NotFoundException {
         return new ProductAmount(this.productService.increaseProductAmountById(productId, requestBody.getAmount()));
     }
 }
