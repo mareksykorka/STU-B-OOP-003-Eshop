@@ -17,4 +17,5 @@ public interface IProductService {
     Long getProductAmountById(Long id) throws NotFoundException;
     Long increaseProductAmountById(Long productId, Long amount) throws NotFoundException;
     Long decreaseProductAmountById(Long productId, Long amount) throws NotFoundException;
+    boolean isInStock(Long productId, Long amount) throws NotFoundException;
 }

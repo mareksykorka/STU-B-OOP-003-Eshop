@@ -6,14 +6,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import sk.stuba.fei.uim.oop.assignment3.cart.logic.ICartItemService;
 import sk.stuba.fei.uim.oop.assignment3.cart.logic.ICartService;
 import sk.stuba.fei.uim.oop.assignment3.cart.web.body.CartAddRequest;
 import sk.stuba.fei.uim.oop.assignment3.cart.web.body.CartResponse;
 import sk.stuba.fei.uim.oop.assignment3.exception.IllegalOperationException;
 import sk.stuba.fei.uim.oop.assignment3.exception.NotFoundException;
-import sk.stuba.fei.uim.oop.assignment3.product.web.body.ProductRequest;
-import sk.stuba.fei.uim.oop.assignment3.product.web.body.ProductResponse;
 
 @RestController
 public class ShoppingCartController {
@@ -41,6 +38,9 @@ public class ShoppingCartController {
         return new CartResponse(this.cartService.addItemToCartById(cartId, bodyRequest));
     }
 
-
+    @GetMapping(value = "/cart/{id}/pay", produces = MediaType.TEXT_PLAIN_VALUE)
+    public String payCart(@PathVariable("id") Long cartId) throws NotFoundException, IllegalOperationException {
+        return "" + this.cartService.payCartById(cartId);
+    }
 
 }

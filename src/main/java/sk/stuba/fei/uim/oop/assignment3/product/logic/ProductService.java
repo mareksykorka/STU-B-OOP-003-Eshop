@@ -79,4 +79,9 @@ public class ProductService implements IProductService {
         return product.getAmount();
     }
 
+    @Override
+    public boolean isInStock(Long productId, Long amount) throws NotFoundException{
+        return this.getProductById(productId).getAmount() >= amount;
+    }
+
 }

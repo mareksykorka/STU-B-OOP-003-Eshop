@@ -13,4 +13,6 @@ public interface ICartService {
     void deleteCartById(Long id) throws NotFoundException;
 
     Cart addItemToCartById(Long id, CartAddRequest request) throws NotFoundException, IllegalOperationException;
+
+    Double payCartById(Long cartId) throws NotFoundException, IllegalOperationException;
 }
