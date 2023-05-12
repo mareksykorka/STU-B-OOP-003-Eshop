@@ -16,7 +16,7 @@ public class Cart {
     private List<CartItem> shoppingList;
     private Boolean payed;
 
-    public Cart(){
+    public Cart() {
         this.shoppingList = new ArrayList<CartItem>();
         this.payed = false;
     }

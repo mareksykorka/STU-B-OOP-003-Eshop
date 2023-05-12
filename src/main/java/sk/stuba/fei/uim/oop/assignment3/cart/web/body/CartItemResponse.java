@@ -8,7 +8,7 @@ public class CartItemResponse {
     private Long productId;
     private Long amount;
 
-    public CartItemResponse(CartItem cItem){
+    public CartItemResponse(CartItem cItem) {
         this.productId = cItem.getProductId();
         this.amount = cItem.getAmount();
     }

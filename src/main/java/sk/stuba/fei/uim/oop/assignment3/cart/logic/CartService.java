@@ -83,6 +83,4 @@ public class CartService implements ICartService {
         this.cartRepository.save(cart);
         return totalPrice;
     }
-
-
 }

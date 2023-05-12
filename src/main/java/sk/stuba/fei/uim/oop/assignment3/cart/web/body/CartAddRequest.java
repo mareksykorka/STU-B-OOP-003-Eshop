@@ -7,7 +7,7 @@ import lombok.AllArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CartAddRequest{
+public class CartAddRequest {
     private Long productId;
     private Long amount;
 }
